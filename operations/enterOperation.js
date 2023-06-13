@@ -6,6 +6,7 @@ import add from './add.js';
 import rn from './rn.js';
 import cp from './cp.js';
 import mv from './mv.js';
+import rm from './rm.js';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -39,6 +40,10 @@ export default async function enterOperation(operation, args) {
 
     case 'mv': 
       mv(args);
+      break;
+
+    case 'rm': 
+      rm(args);
       break;
   }
 }
