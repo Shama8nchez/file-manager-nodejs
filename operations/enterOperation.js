@@ -3,6 +3,7 @@ import cd from './cd.js';
 import ls from './ls.js';
 import cat from './cat.js';
 import add from './add.js';
+import rn from './rn.js';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -24,6 +25,10 @@ export default async function enterOperation(operation, args) {
 
     case 'add': 
       add(args);
+      break;
+
+    case 'rn': 
+      rn(args);
       break;
   }
 }
