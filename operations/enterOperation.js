@@ -5,6 +5,7 @@ import cat from './cat.js';
 import add from './add.js';
 import rn from './rn.js';
 import cp from './cp.js';
+import mv from './mv.js';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -34,6 +35,10 @@ export default async function enterOperation(operation, args) {
 
     case 'cp': 
       cp(args);
+      break;
+
+    case 'mv': 
+      mv(args);
       break;
   }
 }
