@@ -7,11 +7,12 @@ import rn from './rn.js';
 import cp from './cp.js';
 import mv from './mv.js';
 import rm from './rm.js';
+import os from './os.js';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
     case 'up': 
-      up()
+      up(args)
       break;
 
     case 'cd': 
@@ -44,6 +45,10 @@ export default async function enterOperation(operation, args) {
 
     case 'rm': 
       rm(args);
+      break;
+
+    case 'os':
+      os(args)
       break;
   }
 }

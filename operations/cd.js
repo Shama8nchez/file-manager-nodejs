@@ -3,22 +3,15 @@ import { cwd, chdir } from 'node:process';
 import checkPath from '../utils/checkPath.js';
 
 export default function cd(args) {
-  if (!args) {
-    console.log('You need to specify the directory path');
+  if (!args || args.split(' ').length !== 1) {
+    console.log('Invalid input');
   } else {
-    /* let dir = '';
-    if (args.startsWith(cwd())) {
-      dir = args.slice(cwd().length);
-    } else {
-      dir = args;
-    } */
-
     const dir = checkPath(args);
 
     try {
-      chdir(join(cwd(), dir));
+      chdir(dir);
     } catch (err) {
-      console.log('Incorrect directory')
+      console.log('Operation failed')
     }
   }
 }

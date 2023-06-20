@@ -9,7 +9,7 @@ async function startFileManager() {
   output.write(`Welcome to the File Manager, ${userName}!\n`);
 
   chdir(os.homedir());
-  console.log('Current directory: ' + cwd() + '\n');
+  console.log('You are currently in ' + cwd() + '\n');
 
   rl.on('line', async (input) => {
     const operation = input.trim().split(' ')[0];
