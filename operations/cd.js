@@ -1,5 +1,4 @@
-import { join } from 'path';
-import { cwd, chdir } from 'node:process';
+import { chdir } from 'node:process';
 import checkPath from '../utils/checkPath.js';
 
 export default function cd(args) {

@@ -8,6 +8,8 @@ import cp from './cp.js';
 import mv from './mv.js';
 import rm from './rm.js';
 import os from './os.js';
+import compress from './compress.js';
+import decompress from './decompress.js';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -20,7 +22,7 @@ export default async function enterOperation(operation, args) {
       break;
 
     case 'ls': 
-      ls();
+      ls(args);
       break;
 
     case 'cat': 
@@ -28,7 +30,7 @@ export default async function enterOperation(operation, args) {
       break;
 
     case 'add': 
-      add(args);
+      await add(args);
       break;
 
     case 'rn': 
@@ -49,6 +51,14 @@ export default async function enterOperation(operation, args) {
 
     case 'os':
       os(args)
+      break;
+
+    case 'compress':
+      compress(args)
+      break;
+
+    case 'decompress':
+      decompress(args)
       break;
   }
 }
