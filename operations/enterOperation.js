@@ -26,7 +26,7 @@ export default async function enterOperation(operation, args) {
       break;
 
     case 'cat': 
-      cat(args);
+      await cat(args);
       break;
 
     case 'add': 
