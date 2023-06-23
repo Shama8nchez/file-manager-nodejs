@@ -1,8 +1,8 @@
 import checkPath from '../utils/checkPath.js';
 import fs from 'fs';
-import { access, unlink } from 'fs/promises';
+import { stat, rm } from 'fs/promises';
 import { cwd } from 'node:process';
-import { join } from 'path';
+import { resolve, parse } from 'path';
 
 export default async function mv(args) {
   if (!args) {
@@ -16,14 +16,20 @@ export default async function mv(args) {
       const pathDir = checkPath(pathes[1].trim());
 
       try {
-        await access(join(cwd(), pathFile));
-        await access(join(cwd(), pathDir));
-
-        const readStream = fs.createReadStream(join(cwd(), pathFile));
-        const writeStream = fs.createWriteStream(join(cwd(), pathDir, pathFile));
-
-        readStream.pipe(writeStream);
-        unlink(join(cwd(), pathFile));
+        const fileTarget = await stat(resolve(cwd(), pathFile));
+        if (fileTarget.isDirectory()) console.log('Operation failed');
+        else {
+          const dirTarget = await stat(resolve(cwd(), pathDir));
+          if (!dirTarget.isDirectory()) console.log('Operation failed');
+          else {
+            const readStream = fs.createReadStream(resolve(cwd(), pathFile));
+            const writeStream = fs.createWriteStream(resolve(resolve(cwd(), pathDir), parse(pathFile).base));
+    
+            readStream.pipe(writeStream);
+            rm(resolve(cwd(), pathFile))
+          }
+          
+        }
       } catch (err) {
         console.log('Operation failed')
       }

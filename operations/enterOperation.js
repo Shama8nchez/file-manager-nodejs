@@ -10,6 +10,8 @@ import rm from './rm.js';
 import os from './os.js';
 import compress from './compress.js';
 import decompress from './decompress.js';
+import { resolve } from 'path';
+import { cwd } from 'process';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -22,7 +24,7 @@ export default async function enterOperation(operation, args) {
       break;
 
     case 'ls': 
-      ls(args);
+      await ls(args);
       break;
 
     case 'cat': 
@@ -34,19 +36,19 @@ export default async function enterOperation(operation, args) {
       break;
 
     case 'rn': 
-      rn(args);
+      await rn(args);
       break;
 
     case 'cp': 
-      cp(args);
+      await cp(args);
       break;
 
     case 'mv': 
-      mv(args);
+      await mv(args);
       break;
 
     case 'rm': 
-      rm(args);
+      await rm(args);
       break;
 
     case 'os':

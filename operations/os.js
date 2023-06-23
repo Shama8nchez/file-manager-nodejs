@@ -1,6 +1,7 @@
 import os from 'os';
 
 export default function osOperations(args) {
+  //if (!args) console.log('Invalid input');
   switch (args) {
     case '--EOL':
       console.log(JSON.stringify(os.EOL))
@@ -27,6 +28,10 @@ export default function osOperations(args) {
 
     case '--architecture':
       console.log(os.arch());
+      break;
+
+    default:
+      console.log('Invalid input');
       break;
   }
 }

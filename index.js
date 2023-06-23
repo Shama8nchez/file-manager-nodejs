@@ -17,7 +17,7 @@ async function startFileManager() {
 
     await enterOperation(operation, args);
 
-    console.log('Current directory: ' + cwd() + '\n');
+    console.log('You are currently in ' + cwd() + '\n');
   });
 
   process.on('exit', () => output.write(`Thank you for using File Manager, ${userName}, goodbye!\n`));

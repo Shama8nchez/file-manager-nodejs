@@ -1,8 +1,7 @@
 import checkPath from '../utils/checkPath.js';
-import fs from 'fs';
-import { access, unlink } from 'fs/promises';
+import { stat, unlink } from 'fs/promises';
 import { cwd } from 'node:process';
-import { join } from 'path';
+import { resolve } from 'path';
 
 export default async function rm(args) {
   if (!args) {
@@ -15,9 +14,9 @@ export default async function rm(args) {
       const pathFile = checkPath(pathes[0].trim());
 
       try {
-        await access(join(cwd(), pathFile));
-
-        unlink(join(cwd(), pathFile));
+        const target = await stat(resolve(cwd(), pathFile));
+        if (target.isDirectory()) console.log('Operation failed')
+        else unlink(resolve(cwd(), pathFile));
       } catch (err) {
         console.log('Operation failed')
       }
