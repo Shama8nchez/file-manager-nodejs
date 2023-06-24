@@ -15,9 +15,12 @@ async function startFileManager() {
     const operation = input.trim().split(' ')[0];
     const args = input.slice(operation.length).trim();
 
-    await enterOperation(operation, args);
+    if (input === '.exit') rl.close();
+    else {
+      await enterOperation(operation, args);
 
-    console.log('You are currently in ' + cwd() + '\n');
+      console.log('You are currently in ' + cwd() + '\n');
+    }
   });
 
   process.on('exit', () => output.write(`Thank you for using File Manager, ${userName}, goodbye!\n`));

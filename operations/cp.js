@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { access, stat } from 'fs/promises';
+import { stat } from 'fs/promises';
 import { cwd } from 'node:process';
 import { parse, resolve } from 'path';
 

@@ -1,14 +1,29 @@
 import fs from 'fs';
 import zlib from 'zlib';
+import { stat } from 'fs/promises';
+import { cwd } from 'node:process';
+import { resolve, parse } from 'path';
 
-export default function compress(args) {
+export default async function compress(args) {
   if (!args || args.split(' ').length !== 2) {
     console.log('Invalid input');
   } else {
-    const rs = fs.createReadStream(args.split(' ')[0], 'utf-8');
-    const ws = fs.createWriteStream(args.split(' ')[1]);
-    const gzip = zlib.createBrotliCompress();
+    const pathes = args.split(' ');
+    const pathFile = pathes[0].trim();
+    const pathDir = pathes[1].trim();
 
-    rs.pipe(gzip).pipe(ws);
+    const fileTarget = await stat(resolve(cwd(), pathFile));
+    if (fileTarget.isDirectory()) console.log('Operation failed');
+    else {
+      const dirTarget = await stat(resolve(cwd(), pathDir));
+      if (!dirTarget.isDirectory()) console.log('Operation failed');
+      else {
+        const rs = fs.createReadStream(pathFile);
+        const ws = fs.createWriteStream(resolve(pathDir, parse(pathFile).base + '.gz'));
+        const gzip = zlib.createBrotliCompress();
+    
+        rs.pipe(gzip).pipe(ws);
+      }
+    }
   }
 }

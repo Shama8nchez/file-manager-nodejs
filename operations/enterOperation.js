@@ -10,8 +10,6 @@ import rm from './rm.js';
 import os from './os.js';
 import compress from './compress.js';
 import decompress from './decompress.js';
-import { resolve } from 'path';
-import { cwd } from 'process';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -56,11 +54,15 @@ export default async function enterOperation(operation, args) {
       break;
 
     case 'compress':
-      compress(args)
+      await compress(args)
       break;
 
     case 'decompress':
-      decompress(args)
+      await decompress(args)
+      break;
+
+    default:
+      console.log('Invalid input');
       break;
   }
 }
