@@ -12,18 +12,23 @@ export default async function compress(args) {
     const pathFile = pathes[0].trim();
     const pathDir = pathes[1].trim();
 
-    const fileTarget = await stat(resolve(cwd(), pathFile));
-    if (fileTarget.isDirectory()) console.log('Operation failed');
-    else {
-      const dirTarget = await stat(resolve(cwd(), pathDir));
-      if (!dirTarget.isDirectory()) console.log('Operation failed');
+    try {
+      const fileTarget = await stat(resolve(cwd(), pathFile));
+      if (fileTarget.isDirectory()) console.log('Operation failed');
       else {
-        const rs = fs.createReadStream(pathFile);
-        const ws = fs.createWriteStream(resolve(pathDir, parse(pathFile).base + '.gz'));
-        const gzip = zlib.createBrotliCompress();
-    
-        rs.pipe(gzip).pipe(ws);
+        const dirTarget = await stat(resolve(cwd(), pathDir));
+        if (!dirTarget.isDirectory()) console.log('Operation failed');
+        else {
+          const rs = fs.createReadStream(pathFile);
+          const ws = fs.createWriteStream(resolve(pathDir, parse(pathFile).base + '.gz'));
+          const gzip = zlib.createBrotliCompress();
+      
+          rs.pipe(gzip).pipe(ws);
+        }
       }
+    } catch {
+      console.log('Operation failed');
     }
+    
   }
 }

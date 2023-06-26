@@ -10,6 +10,7 @@ import rm from './rm.js';
 import os from './os.js';
 import compress from './compress.js';
 import decompress from './decompress.js';
+import hash from './hash.js';
 
 export default async function enterOperation(operation, args) {
   switch (operation) {
@@ -59,6 +60,10 @@ export default async function enterOperation(operation, args) {
 
     case 'decompress':
       await decompress(args)
+      break;
+
+    case 'hash':
+      await hash(args)
       break;
 
     default:
