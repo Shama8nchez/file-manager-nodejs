@@ -1,5 +1,4 @@
-import { readFile } from 'node:fs';
-import { stat } from 'fs/promises';
+import { stat, readFile } from 'fs/promises';
 import { cwd } from 'node:process';
 import { resolve } from 'path';
 
@@ -17,10 +16,9 @@ export default async function compress(args) {
         
         const hash = createHash('sha256');
   
-        readFile(resolve(cwd(), args), 'utf8', (err, data) => {
-            hash.update(data);
-            console.log(hash.digest('hex'));
-        });
+        const data = await readFile(resolve(cwd(), args))
+        hash.update(data);
+        console.log(hash.digest('hex'));
       }
     } catch {
       console.log('Operation failed');
